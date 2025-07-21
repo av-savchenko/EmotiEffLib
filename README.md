@@ -82,6 +82,7 @@ Here are the performance metrics (accuracy on AffectNet, AFEW and VGAF), F1-scor
 
 Please note, that we report the accuracies for AFEW and VGAF only on the subsets, in which MTCNN detects facial regions. The code contains also computation of overall accuracy on the complete testing set, which is slightly lower due to the absence of faces or failed face detection.
 
+Additional models trained using Neural Architecture Search (SuperNet and two subnetworks) are available [here](https://github.com/av-savchenko/mobile-face-recognition/tree/main/models/face_expressions)
 
 ## Research papers
 

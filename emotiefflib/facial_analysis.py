@@ -288,9 +288,9 @@ class EmotiEffLibRecognizerTorch(EmotiEffLibRecognizerBase):
 
         path = get_model_path_torch(model_name)
         if device == "cpu":
-            model = torch.load(path, map_location=torch.device("cpu"))
+            model = torch.load(path, map_location=torch.device("cpu"), weights_only=False)
         else:
-            model = torch.load(path)
+            model = torch.load(path, weights_only=False)
         if model_name == "mbf_va_mtl":
             self.classifier_weights = model.fc.weight.cpu().data.numpy()
             self.classifier_bias = model.fc.bias.cpu().data.numpy()

@@ -116,4 +116,4 @@ If you use our models, please cite the following papers:
 
 ## License
 
-The code of EmotiEffLib Python Library is released under the Apache-2.0 License. There is no limitation for both academic and commercial usage.
+The code of EmotiEffLib is released under the Apache-2.0 License. There is no limitation for both academic and commercial usage.

@@ -5,11 +5,29 @@ recognition in images and videos. It supports multiple inference engines,
 including Torch and ONNX Runtime.
 
 ## Installing
+### Install version of the library from actual code
+- Install EmotiEffLib with ONNX support:
+    ```sh
+    pip install .
+    ```
+- Install EmotiEffLib with ONNX and Torch support:
+   ```sh
+   pip install .[torch]
+   ```
+- Install EmotiEffLib with ONNX and TensorFlow support (the last one is necessary for enagement prediction):
+   ```sh
+   pip install .[engagement]
+   ```
+- Install EmotiEffLib with all possible dependencies:
+   ```sh
+   pip install .[all]
+   ```
+   or
+   ```sh
+   pip install .[torch,engagement]
+   ```
 
-```
-    python setup.py install
-```
-
+### Install version of the library from PyPI
 It is also possible to install it via pip:
 - Install EmotiEffLib with ONNX support:
    ```sh
@@ -56,4 +74,4 @@ follow the following steps:
 
 ## License
 
-The code of EmotiEffCppLib Library is released under the Apache-2.0 License. There is no limitation for both academic and commercial usage.
+The code of EmotiEffLib Python Library is released under the Apache-2.0 License. There is no limitation for both academic and commercial usage.

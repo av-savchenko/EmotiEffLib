@@ -1,3 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emotiefflib"
+version = "1.1.1"
+description = "EmotiEffLib Python Library for Facial Emotion and Engagement Recognition"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICEN[CS]E.*"]
+authors = [
+  { name = "Andrey Savchenko", email = "andrey.v.savchenko@gmail.com"  },
+  { name = "Egor Churaev", email = "egor.churaev@gmail.com"  }
+]
+keywords = [
+  "face expression recognition",
+  "emotion analysis",
+  "facial expressions",
+  "engagement detection",
+]
+dynamic = ["dependencies", "optional-dependencies"]
+
+[project.urls]
+Homepage = "https://github.com/sb-ai-lab/EmotiEffLib"
+Download = "https://github.com/sb-ai-lab/EmotiEffLib/archive/v1.1.1.tar.gz"
+Repository = "https://github.com/sb-ai-lab/EmotiEffLib"
+Documentation = "https://sb-ai-lab.github.io/EmotiEffLib/"
+
+[tool.setuptools]
+packages = { find = { where = ["."]  }  }
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"]  }
+optional-dependencies.torch = { file = ["requirements-torch.txt"]  }
+optional-dependencies.engagement = { file = ["requirements-engagement.txt"]  }
+optional-dependencies.all = { file = ["requirements-torch.txt", "requirements-engagement.txt"]  }
+
 [tool.black]
 line-length = 100
 target-version = ['py310']

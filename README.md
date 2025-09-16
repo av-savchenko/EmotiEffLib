@@ -1,6 +1,6 @@
 # EmotiEffLib: Library for Efficient Emotion Analysis and Facial Expression Recognition
 [![Tests](https://github.com/sb-ai-lab/EmotiEffLib/actions/workflows/tests.yml/badge.svg)](https://github.com/sb-ai-lab/EmotiEffLib/actions/workflows/tests.yml)
-[![pypi package](https://img.shields.io/badge/version-v1.0-blue)]([https://pypi.org/project/emotiefflib](https://pypi.org/project/emotiefflib/))
+[![pypi package](https://img.shields.io/badge/version-v1.1.1-blue)]([https://pypi.org/project/emotiefflib](https://pypi.org/project/emotiefflib/))
 [![License](https://img.shields.io/pypi/l/emotiefflib)](https://github.com/sb-ai-lab/EmotiEffLib/blob/main/LICENSE)
 [![Downloads](https://static.pepy.tech/personalized-badge/emotiefflib?period=total&units=international_system&left_color=grey&right_color=blue&left_text=pip%20installs)](https://pepy.tech/project/emotiefflib)
 [![Downloads](https://static.pepy.tech/personalized-badge/hsemotion?period=total&units=international_system&left_color=grey&right_color=blue&left_text=pip%20installs)](https://pepy.tech/project/hsemotion)

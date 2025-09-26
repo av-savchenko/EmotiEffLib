@@ -60,7 +60,7 @@ def trace_model(
         img_size = 224
     input_shape = (1, 3, img_size, img_size)
     model_example = torch.rand(*input_shape)
-    model = torch.load(torch_model, map_location=torch.device("cpu"))
+    model = torch.load(torch_model, map_location=torch.device("cpu"), weights_only=False)
     # pylint: disable=no-else-return
     if model_name in ("mbf_va_mtl.pt", "mobilevit_va_mtl.pt"):
         # This is a workaround but it still is not working because of shapes issues in runtime

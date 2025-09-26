@@ -5,10 +5,10 @@
 #include <gtest/gtest.h>
 #include <string>
 
-#include <xtensor/xarray.hpp>
-#include <xtensor/xio.hpp>
-#include <xtensor/xmath.hpp>
-#include <xtensor/xsort.hpp>
+#include <xtensor/containers/xarray.hpp>
+#include <xtensor/core/xmath.hpp>
+#include <xtensor/io/xio.hpp>
+#include <xtensor/misc/xsort.hpp>
 
 namespace fs = std::filesystem;
 

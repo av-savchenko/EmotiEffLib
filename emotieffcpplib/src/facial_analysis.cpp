@@ -4,8 +4,12 @@
  */
 
 #include "emotiefflib/facial_analysis.h"
+#ifdef WITH_ONNX
 #include "emotiefflib/backends/onnx/facial_analysis.h"
+#endif
+#ifdef WITH_TORCH
 #include "emotiefflib/backends/torch/facial_analysis.h"
+#endif
 
 #include <filesystem>
 
@@ -41,17 +45,27 @@ std::unique_ptr<EmotiEffLibRecognizer>
 EmotiEffLibRecognizer::createInstance(const std::string& backend,
                                       const std::string& fullPipelineModelPath) {
     checkBackend(backend);
+#ifdef WITH_TORCH
     if (backend == "torch")
         return std::make_unique<EmotiEffLibRecognizerTorch>(fullPipelineModelPath);
+#elif defined(USE_ONNXRUNTIME)
     return std::make_unique<EmotiEffLibRecognizerOnnx>(fullPipelineModelPath);
+#else
+    throw std::runtime_error("EmotiEffCppLib wasn't compiled with any backend support.");
+#endif
 }
 
 std::unique_ptr<EmotiEffLibRecognizer>
 EmotiEffLibRecognizer::createInstance(const EmotiEffLibConfig& config) {
     checkBackend(config.backend);
+#ifdef WITH_TORCH
     if (config.backend == "torch")
         return std::make_unique<EmotiEffLibRecognizerTorch>(config);
+#elif defined(USE_ONNXRUNTIME)
     return std::make_unique<EmotiEffLibRecognizerOnnx>(config);
+#else
+    throw std::runtime_error("EmotiEffCppLib wasn't compiled with any backend support.");
+#endif
 }
 
 xt::xarray<float> EmotiEffLibRecognizer::extractFeatures(const std::vector<cv::Mat>& faceImgs) {

@@ -75,7 +75,63 @@ jobs:
         run: |
           pytest --disable-warnings tests/test_module_loading.py
 
-  gtests:
+  gtests-onnx:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 1 # shallow clone
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y cmake g++ make wget libopencv-dev python3
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-engagement.txt
+          pip install -r tests/requirements.txt
+
+      - name: Set PYTHONPATH environment variable
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
+      - name: Download and unpack ONNXRuntime
+        run: |
+          wget https://github.com/microsoft/onnxruntime/releases/download/v1.20.1/onnxruntime-linux-x64-1.20.1.tgz -O onnxruntime.tgz
+          mkdir onnxruntime
+          tar -xzf onnxruntime.tgz -C onnxruntime --strip-components=1
+          # Workaround for Linux build in CI
+          cp -rf onnxruntime/lib onnxruntime/lib64
+
+      - name: Download and unpack test data
+        run: |
+          cd tests/
+          ./download_test_data.sh
+          tar -xzf data.tar.gz
+          cd ..
+
+      - name: Build EmotiEffCppLib
+        run: |
+          mkdir build
+          cmake -S emotieffcpplib -B build -DWITH_ONNX="$PWD/onnxruntime" -DBUILD_TESTS=ON
+          cmake --build build --config Release -- -j$(nproc)
+
+      - name: Prepare torch models
+        run: python3 models/prepare_models_for_emotieffcpplib.py
+
+      - name: Run GTests
+        run: |
+          EMOTIEFFLIB_ROOT=$PWD ./build/bin/unit_tests
+
+  gtests-torch:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -104,15 +160,10 @@ jobs:
       - name: Set PYTHONPATH environment variable
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
-      - name: Download and unpack LibTorch and ONNXRuntime
+      - name: Download and unpack LibTorch
         run: |
           wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-2.6.0%2Bcpu.zip -O libtorch.zip
-          wget https://github.com/microsoft/onnxruntime/releases/download/v1.20.1/onnxruntime-linux-x64-1.20.1.tgz -O onnxruntime.tgz
           unzip libtorch.zip
-          mkdir onnxruntime
-          tar -xzf onnxruntime.tgz -C onnxruntime --strip-components=1
-          # Workaround for Linux build in CI
-          cp -rf onnxruntime/lib onnxruntime/lib64
 
       - name: Download and unpack test data
         run: |

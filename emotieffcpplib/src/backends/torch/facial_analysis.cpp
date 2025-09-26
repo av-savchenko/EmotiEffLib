@@ -5,7 +5,7 @@
 
 #include "emotiefflib/backends/torch/facial_analysis.h"
 
-#include <xtensor/xadapt.hpp>
+#include <xtensor/containers/xadapt.hpp>
 
 namespace {
 /**

@@ -13,9 +13,9 @@
 
 #include <filesystem>
 
-#include <xtensor/xmath.hpp>
-#include <xtensor/xsort.hpp>
-#include <xtensor/xview.hpp>
+#include <xtensor/core/xmath.hpp>
+#include <xtensor/misc/xsort.hpp>
+#include <xtensor/views/xview.hpp>
 
 namespace fs = std::filesystem;
 

@@ -175,7 +175,7 @@ jobs:
       - name: Build EmotiEffCppLib
         run: |
           mkdir build
-          cmake -S emotieffcpplib -B build -DWITH_TORCH="$PWD/libtorch" -DWITH_ONNX="$PWD/onnxruntime" -DBUILD_TESTS=ON
+          cmake -S emotieffcpplib -B build -DWITH_TORCH="$PWD/libtorch" -DBUILD_TESTS=ON
           cmake --build build --config Release -- -j$(nproc)
 
       - name: Prepare torch models

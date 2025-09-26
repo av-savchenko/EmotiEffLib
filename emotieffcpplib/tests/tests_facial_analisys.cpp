@@ -473,6 +473,12 @@ INSTANTIATE_TEST_SUITE_P(
 TEST_P(EmotiEffLibOnlyModelTests, OneImageFeatures) {
     std::string modelName = GetParam();
     auto facialImages = getOneImageFaces();
+    auto supportedBackends = EmotiEffLib::getAvailableBackends();
+    auto findOnnx = std::find(supportedBackends.begin(), supportedBackends.end(), "onnx");
+    auto findTorch = std::find(supportedBackends.begin(), supportedBackends.end(), "torch");
+    if (findOnnx == supportedBackends.end() or findTorch == supportedBackends.end()) {
+        GTEST_SKIP() << "Skipping test because of unsupported backend.";
+    }
 
     fs::path modelPath(getEmotiEffLibRootDir());
     modelPath = modelPath / "models" / "emotieffcpplib_prepared_models";
@@ -498,6 +504,12 @@ TEST_P(EmotiEffLibOnlyModelTests, OneImageFeatures) {
 TEST_P(EmotiEffLibOnlyModelTests, OneImageMultiFeatures) {
     std::string modelName = GetParam();
     auto facialImages = getOneImageFaces();
+    auto supportedBackends = EmotiEffLib::getAvailableBackends();
+    auto findOnnx = std::find(supportedBackends.begin(), supportedBackends.end(), "onnx");
+    auto findTorch = std::find(supportedBackends.begin(), supportedBackends.end(), "torch");
+    if (findOnnx == supportedBackends.end() or findTorch == supportedBackends.end()) {
+        GTEST_SKIP() << "Skipping test because of unsupported backend.";
+    }
 
     fs::path modelPath(getEmotiEffLibRootDir());
     modelPath = modelPath / "models" / "emotieffcpplib_prepared_models";
@@ -560,26 +572,35 @@ TEST(EmotiEffLibTests, CheckIncorrectConfig) {
     } catch (...) {
         FAIL();
     }
+    auto supportedBackends = EmotiEffLib::getAvailableBackends();
     config = {.backend = "torch", .classifierPath = "bla-bla", .modelName = "bla-bla"};
-    try {
-        EmotiEffLib::EmotiEffLibRecognizer::createInstance(config);
-        FAIL();
-    } catch (const std::runtime_error& e) {
-        EXPECT_EQ("fullPipelineEmotionModelPath or featureExtractorPath MUST be specified in the "
-                  "EmotiEffLibConfig.",
-                  std::string(e.what()));
-    } catch (...) {
-        FAIL();
+    if (std::find(supportedBackends.begin(), supportedBackends.end(), config.backend) !=
+        supportedBackends.end()) {
+        try {
+            EmotiEffLib::EmotiEffLibRecognizer::createInstance(config);
+            FAIL();
+        } catch (const std::runtime_error& e) {
+            EXPECT_EQ(
+                "fullPipelineEmotionModelPath or featureExtractorPath MUST be specified in the "
+                "EmotiEffLibConfig.",
+                std::string(e.what()));
+        } catch (...) {
+            FAIL();
+        }
     }
     config.backend = "onnx";
-    try {
-        EmotiEffLib::EmotiEffLibRecognizer::createInstance(config);
-        FAIL();
-    } catch (const std::runtime_error& e) {
-        EXPECT_EQ("fullPipelineEmotionModelPath or featureExtractorPath MUST be specified in the "
-                  "EmotiEffLibConfig.",
-                  std::string(e.what()));
-    } catch (...) {
-        FAIL();
+    if (std::find(supportedBackends.begin(), supportedBackends.end(), config.backend) !=
+        supportedBackends.end()) {
+        try {
+            EmotiEffLib::EmotiEffLibRecognizer::createInstance(config);
+            FAIL();
+        } catch (const std::runtime_error& e) {
+            EXPECT_EQ(
+                "fullPipelineEmotionModelPath or featureExtractorPath MUST be specified in the "
+                "EmotiEffLibConfig.",
+                std::string(e.what()));
+        } catch (...) {
+            FAIL();
+        }
     }
 }

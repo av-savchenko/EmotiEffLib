@@ -48,7 +48,7 @@ EmotiEffLibRecognizer::createInstance(const std::string& backend,
 #ifdef WITH_TORCH
     if (backend == "torch")
         return std::make_unique<EmotiEffLibRecognizerTorch>(fullPipelineModelPath);
-#elif defined(USE_ONNXRUNTIME)
+#elif defined(WITH_ONNX)
     return std::make_unique<EmotiEffLibRecognizerOnnx>(fullPipelineModelPath);
 #else
     throw std::runtime_error("EmotiEffCppLib wasn't compiled with any backend support.");
@@ -61,7 +61,7 @@ EmotiEffLibRecognizer::createInstance(const EmotiEffLibConfig& config) {
 #ifdef WITH_TORCH
     if (config.backend == "torch")
         return std::make_unique<EmotiEffLibRecognizerTorch>(config);
-#elif defined(USE_ONNXRUNTIME)
+#elif defined(WITH_ONNX)
     return std::make_unique<EmotiEffLibRecognizerOnnx>(config);
 #else
     throw std::runtime_error("EmotiEffCppLib wasn't compiled with any backend support.");

@@ -76,7 +76,6 @@ Here are the performance metrics (accuracy on AffectNet, AFEW and VGAF), F1-scor
 | [enet_b0_8_best_afew.pt](models/affectnet_emotions/enet_b0_8_best_afew.pt) | 60.95  | 64.63  | 59.89  | 66.80  | 59.32 | 1.110 |59 ± 26 | 16 |
 | [enet_b0_8_best_vgaf.pt](models/affectnet_emotions/enet_b0_8_best_vgaf.pt) | 61.32   | 64.57   | 55.14  | 68.29  | 59.72 | 1.123 |59 ± 26 | 16 |
 | [enet_b0_8_va_mtl.pt](models/affectnet_emotions/enet_b0_8_va_mtl.pt) | 61.93   | 64.94   | 56.73  | 66.58  | 60.94 | 1.276 |60 ± 32 | 16 |
-| [enet_b0_7.pt](models/affectnet_emotions/enet_b0_7.pt) | -    | 65.74   | 56.99  | 65.18  | - | 1.111 |59 ± 26 | 16 |
 | [enet_b2_7.pt](models/affectnet_emotions/enet_b2_7.pt) | -    | 66.34   | 59.63  | 69.84  | - | 1.134 |191 ± 18 | 30 |
 | [enet_b2_8.pt](models/affectnet_emotions/enet_b2_8.pt) | 63.03  | 66.29 | 57.78  | 70.23  | 52.06 | 1.147 |191 ± 18 | 30 |
 | [enet_b2_8_best.pt](models/affectnet_emotions/enet_b2_8_best.pt) | 63.125  | 66.51 | 56.73  | 71.12  | - | - |191 ± 18 | 30 |
